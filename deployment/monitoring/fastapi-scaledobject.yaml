@@ -5,6 +5,8 @@ metadata:
  namespace: default
 spec:
  scaleTargetRef:
+  apiVersion: apps/v1
+  kind: Deployment
   name: model # update to your actual deployment name
  minReplicaCount: 1
  maxReplicaCount: 5
@@ -18,9 +20,7 @@ spec:
      query: |
       histogram_quantile(0.95,sum(rate(http_request_duration_seconds_bucket[1m])) by (le))
      threshold: "0.5"
-  - type: prometheus
+  - type: cpu
+    metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
     metadata:
-     serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
-     metricName: request_rate
-     query: sum(rate(http_requests_total[1m]))
-     threshold: "1000"
+     value: "50"
