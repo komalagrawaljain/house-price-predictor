@@ -18,9 +18,15 @@ spec:
         app: model
     spec:
       containers:
-      - image: koagrawa/house-price-model:latest
+      - image: komalagrawaljain/house-price-model:latest
         name: house-price-model
         ports:
         - containerPort: 8000
-        resources: {}
+        resources:
+         requests:
+          cpu: "50m"
+          memory: "64Mi"
+         limits:
+          cpu: "100m"
+          memory: "128Mi"
 status: {}

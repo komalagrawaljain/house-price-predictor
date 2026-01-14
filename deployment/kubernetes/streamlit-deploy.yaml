@@ -18,7 +18,7 @@ spec:
         app: streamlit
     spec:
       containers:
-      - image: koagrawa/streamlit:latest
+      - image: komalagrawaljain/streamlit:latest
         name: streamlit
         ports:
         - containerPort: 8501
