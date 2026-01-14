@@ -26,9 +26,14 @@ app = FastAPI(
     },
 )
 
+# Initialize and instrument Prometheus metrics
+Instrumentator().instrument(app).expose(app)
+
 # Start Prometheus metrics server on port 9100 in a background thread
 def start_metrics_server():
     start_http_server(9100)
+
+threading.Thread(target=start_metrics_server,daemon=True).start()
 
 # Add CORS middleware
 app.add_middleware(
@@ -38,8 +43,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Initialize and instrument Prometheus metrics
-Instrumentator().instrument(app).expose(app)
+
 
 # Health check endpoint
 @app.get("/health", response_model=dict)
