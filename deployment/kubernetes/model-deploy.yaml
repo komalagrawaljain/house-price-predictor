@@ -19,9 +19,11 @@ spec:
     spec:
       containers:
       - image: komalagrawaljain/house-price-model:latest
+        imagePullPolicy: Always 
         name: house-price-model
         ports:
         - containerPort: 8000
+        - containerPort: 9100
         resources:
          requests:
           cpu: "50m"
